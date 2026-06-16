@@ -73,7 +73,8 @@ cd Heimdall-Agent
 docker compose up -d --build
 ```
 Usa la rete host + i permessi di cattura raw per vedere la LAN. Modifica
-`command:` in `docker-compose.yml` per passare a `--mode dns`.
+`command:` in `docker-compose.yml` per cambiare modalità (`--mode dns`) o per
+richiedere un token (`--token TUOTOKEN`).
 
 ### 3) Raspberry Pi (guidata)
 1. Scrivi **Raspberry Pi OS Lite** su una microSD e avvia il Pi (abilita SSH).
@@ -116,9 +117,11 @@ pacchetti salire e la **mappa del traffico** popolarsi.
 ---
 
 ## Note di sicurezza
-- In questa versione l'agente ascolta sulla LAN **senza autenticazione**: si fida
-  della rete locale (e l'app rifiuta indirizzi non locali). Usalo solo su una rete
-  che controlli. Un'opzione con token condiviso è in roadmap.
+- Di default l'agente ascolta sulla LAN **senza autenticazione** (si fida della
+  rete locale; l'app rifiuta indirizzi non locali). Per più sicurezza passa un
+  **token condiviso** — `--token <segreto>` (o `sudo ./install.sh pcap <segreto>`)
+  — e imposta lo **stesso** token nell'app (**Impostazioni → Token agente**).
+  L'app lo invia come `Authorization: Bearer <segreto>`; l'agente rifiuta gli altri.
 - La cattura pacchetti richiede **root** (socket raw). Per questo il servizio
   systemd gira come root.
 - La modalità `dns` è la scelta più rispettosa della privacy: vede solo **quali

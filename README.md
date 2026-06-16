@@ -70,7 +70,8 @@ cd Heimdall-Agent
 docker compose up -d --build
 ```
 Uses host networking + raw-capture caps so it can see the LAN. Edit the `command:`
-in `docker-compose.yml` to switch to `--mode dns`.
+in `docker-compose.yml` to switch mode (`--mode dns`) or require a token
+(`--token YOURTOKEN`).
 
 ### 3) Raspberry Pi (guided)
 1. Flash **Raspberry Pi OS Lite** to an SD card and boot the Pi (enable SSH).
@@ -112,9 +113,11 @@ counter rise, and the **Data-flow map** populate.
 ---
 
 ## Security notes
-- The agent listens on your LAN with **no authentication** in this version — it
-  trusts the local network (and the app refuses non-local addresses). Run it only
-  on a network you control. A shared-token option is on the roadmap.
+- By default the agent listens on your LAN with **no authentication** (it trusts
+  the local network; the app refuses non-local addresses). For extra safety pass
+  a **shared token** — `--token <secret>` (or `sudo ./install.sh pcap <secret>`)
+  — and set the **same** token in the app (**Settings → Agent token**). The app
+  sends it as `Authorization: Bearer <secret>`; the agent rejects anyone else.
 - Packet capture needs **root** (raw sockets). The systemd service runs as root
   for that reason.
 - `dns` mode is the most privacy-conscious choice: it only ever sees which

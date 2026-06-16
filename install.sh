@@ -4,12 +4,14 @@
 # Installs the agent to /opt/heimdall-agent and runs it as a systemd service
 # that auto-starts on boot.
 #
-#   sudo ./install.sh            # pcap mode (default)
-#   sudo ./install.sh dns        # DNS-only mode
+#   sudo ./install.sh                  # pcap mode (default), no auth
+#   sudo ./install.sh dns              # DNS-only mode
+#   sudo ./install.sh pcap MYTOKEN     # pcap + shared-token auth
 #
 set -euo pipefail
 
 MODE="${1:-pcap}"
+TOKEN="${2:-}"
 AGENT_DIR="/opt/heimdall-agent"
 
 if [[ $EUID -ne 0 ]]; then
@@ -40,7 +42,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/python3 ${AGENT_DIR}/heimdall_agent.py --mode ${MODE}
+ExecStart=/usr/bin/python3 ${AGENT_DIR}/heimdall_agent.py --mode ${MODE}${TOKEN:+ --token ${TOKEN}}
 Restart=always
 RestartSec=3
 User=root
@@ -60,3 +62,6 @@ echo "   Logs:    sudo journalctl -u heimdall-agent -f"
 echo ""
 echo "👉 In the app → Sentry Monitor, set the agent URL to:"
 echo "   ws://${IP_ADDR}:8765/stream/packets"
+if [[ -n "${TOKEN}" ]]; then
+  echo "🔒 Token auth is ON — set the SAME token in the app (Settings → Agent token)."
+fi

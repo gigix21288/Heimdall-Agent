@@ -14,4 +14,7 @@ services:
       - NET_RAW                  # required: raw packet capture
       - NET_ADMIN
     restart: unless-stopped
-    command: ["--mode", "pcap"]  # change to ["--mode", "dns"] for DNS-only
+    # DNS-only:  ["--mode", "dns"]
+    # With a shared token (set the SAME token in the app → Settings → Agent token):
+    #            ["--mode", "pcap", "--token", "MYTOKEN"]
+    command: ["--mode", "pcap"]

@@ -168,6 +168,26 @@ def start_sniffer(hub, mode, iface):
     return t
 
 
+def _authorized(ws, token):
+    if not token:
+        return True
+    # Preferred: Authorization: Bearer <token> header (what the app sends).
+    try:
+        if ws.request.headers.get("Authorization", "") == f"Bearer {token}":
+            return True
+    except Exception:
+        pass
+    # Fallback: ?token=<token> query parameter.
+    try:
+        from urllib.parse import urlparse, parse_qs
+        if parse_qs(urlparse(ws.request.path).query).get(
+                "token", [None])[0] == token:
+            return True
+    except Exception:
+        pass
+    return False
+
+
 async def main_async(args):
     loop = asyncio.get_running_loop()
     hub = Hub(loop)
@@ -175,6 +195,12 @@ async def main_async(args):
     asyncio.ensure_future(hub.broadcast_forever())
 
     async def handler(ws):
+        if not _authorized(ws, args.token):
+            try:
+                await ws.close(code=1008, reason="unauthorized")
+            except Exception:
+                pass
+            return
         hub.register(ws)
         try:
             async for _ in ws:  # we don't expect inbound messages
@@ -184,7 +210,8 @@ async def main_async(args):
         finally:
             hub.unregister(ws)
 
-    print(f"[Heimdall Agent] mode={args.mode}  "
+    auth = "on (token required)" if args.token else "off (LAN trust)"
+    print(f"[Heimdall Agent] mode={args.mode}  auth={auth}  "
           f"serving ws://0.0.0.0:{args.port}{WS_PATH}")
     print("[Heimdall Agent] In the app → Sentry Monitor, set the URL to "
           f"ws://<this-host-ip>:{args.port}{WS_PATH}")
@@ -202,6 +229,10 @@ def main():
                    help=f"WebSocket port (default {DEFAULT_PORT})")
     p.add_argument("--iface", default=None,
                    help="capture interface (default: scapy's default route)")
+    p.add_argument("--token", default=None,
+                   help="optional shared secret; if set, only clients that send "
+                        "it (Authorization: Bearer <token>, or ?token=...) may "
+                        "connect")
     args = p.parse_args()
     try:
         asyncio.run(main_async(args))
