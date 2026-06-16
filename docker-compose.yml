@@ -1,0 +1,17 @@
+# Heimdall Agent — Docker deployment (NAS / homelab / always-on Linux box).
+#
+#   docker compose up -d --build
+#
+# The container uses HOST networking + raw-capture capabilities so it can see
+# the LAN traffic. It must run on a machine positioned at a network choke point
+# (a router/gateway, or a host receiving mirrored traffic).
+services:
+  heimdall-agent:
+    build: .
+    container_name: heimdall-agent
+    network_mode: host          # required: see the LAN, expose port 8765
+    cap_add:
+      - NET_RAW                  # required: raw packet capture
+      - NET_ADMIN
+    restart: unless-stopped
+    command: ["--mode", "pcap"]  # change to ["--mode", "dns"] for DNS-only
