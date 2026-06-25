@@ -1,0 +1,15 @@
+[
+  { "keywords": ["alexa", "echo", "amazon"], "traits": ["microphone", "alwaysListening", "cloudDependent"] },
+  { "keywords": ["google home", "google nest", "nest mini", "nest hub", "chromecast", "googlecast"], "traits": ["microphone", "alwaysListening", "cloudDependent"] },
+  { "keywords": ["homepod", "siri", "apple tv"], "traits": ["microphone", "alwaysListening", "cloudDependent"] },
+  { "keywords": ["sonos", "smart speaker"], "traits": ["microphone", "cloudDependent"] },
+  { "keywords": ["camera", "ipcam", "ip cam", "rtsp", "webcam", "nvr", "axis"], "traits": ["camera", "cloudDependent"] },
+  { "keywords": ["ring", "wyze", "arlo", "blink", "eufy", "reolink"], "traits": ["camera", "microphone", "cloudDependent", "locationAware"] },
+  { "keywords": ["doorbell"], "traits": ["camera", "microphone", "cloudDependent", "locationAware"] },
+  { "keywords": ["smart tv", "smarttv", "samsung tv", "lg tv", "vizio", "roku", "fire tv", "firetv", "android tv", "webos", "tizen"], "traits": ["microphone", "cloudDependent"] },
+  { "keywords": ["thermostat", "ecobee", "tado"], "traits": ["cloudDependent", "locationAware"] },
+  { "keywords": ["robot vacuum", "roomba", "roborock"], "traits": ["camera", "cloudDependent", "locationAware"] },
+  { "keywords": ["baby monitor"], "traits": ["camera", "microphone", "cloudDependent"] },
+  { "keywords": ["windows 7", "windows xp", "android 4", "android 5", "ios 9", "ios 10"], "traits": [], "eol": true },
+  { "keywords": ["hikvision", "dahua"], "traits": ["camera", "cloudDependent"], "eol": true }
+]

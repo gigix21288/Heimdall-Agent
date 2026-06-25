@@ -1,0 +1,22 @@
+[
+  {"cidr": "52.0.0.0/11",    "org": "Amazon AWS",        "country": "US", "flag": "🇺🇸"},
+  {"cidr": "54.144.0.0/12",  "org": "Amazon AWS",        "country": "US", "flag": "🇺🇸"},
+  {"cidr": "3.0.0.0/9",      "org": "Amazon AWS",        "country": "US", "flag": "🇺🇸"},
+  {"cidr": "13.32.0.0/15",   "org": "Amazon CloudFront", "country": "US", "flag": "🇺🇸"},
+  {"cidr": "142.250.0.0/15", "org": "Google",            "country": "US", "flag": "🇺🇸"},
+  {"cidr": "172.217.0.0/16", "org": "Google",            "country": "US", "flag": "🇺🇸"},
+  {"cidr": "8.8.8.0/24",     "org": "Google DNS",        "country": "US", "flag": "🇺🇸"},
+  {"cidr": "104.16.0.0/12",  "org": "Cloudflare",        "country": "US", "flag": "🇺🇸"},
+  {"cidr": "1.1.1.0/24",     "org": "Cloudflare DNS",    "country": "US", "flag": "🇺🇸"},
+  {"cidr": "20.0.0.0/8",     "org": "Microsoft Azure",   "country": "US", "flag": "🇺🇸"},
+  {"cidr": "40.74.0.0/15",   "org": "Microsoft Azure",   "country": "US", "flag": "🇺🇸"},
+  {"cidr": "23.32.0.0/11",   "org": "Akamai",            "country": "US", "flag": "🇺🇸"},
+  {"cidr": "151.101.0.0/16", "org": "Fastly",            "country": "US", "flag": "🇺🇸"},
+  {"cidr": "47.74.0.0/15",   "org": "Alibaba Cloud",     "country": "CN", "flag": "🇨🇳"},
+  {"cidr": "8.208.0.0/12",   "org": "Alibaba Cloud",     "country": "CN", "flag": "🇨🇳"},
+  {"cidr": "47.235.0.0/16",  "org": "Alibaba Cloud",     "country": "CN", "flag": "🇨🇳"},
+  {"cidr": "43.128.0.0/12",  "org": "Tencent Cloud",     "country": "CN", "flag": "🇨🇳"},
+  {"cidr": "119.28.0.0/16",  "org": "Tencent Cloud",     "country": "CN", "flag": "🇨🇳"},
+  {"cidr": "5.255.255.0/24", "org": "Yandex",            "country": "RU", "flag": "🇷🇺"},
+  {"cidr": "77.88.0.0/18",   "org": "Yandex",            "country": "RU", "flag": "🇷🇺"}
+]
